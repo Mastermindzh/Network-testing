@@ -1,0 +1,45 @@
+version: "2"
+services:
+  
+  elasticsearch:
+    build:
+      context: docker/elasticsearch/
+    volumes:
+      - ./docker/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./.deps/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx2048m -Xms2048m"
+    networks:
+      - elk
+    restart: always
+
+  kibana:
+    build:
+      context: docker/kibana/
+    volumes:
+      - ./docker/kibana/config/:/usr/share/kibana/config:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+    restart: on-failure
+
+  cerebro:
+    build:
+      context: docker/cerebro
+    volumes:
+      - ./.deps/cerebro/logs:/opt/cerebro/logs
+      - ./docker/cerebro/conf/application.conf:/opt/cerebro/conf/application.conf
+    ports:
+      - "9100:9000"
+    networks:
+      - elk
+
+networks:
+  elk:
+    driver: bridge
