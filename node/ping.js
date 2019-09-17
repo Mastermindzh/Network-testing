@@ -45,5 +45,4 @@ function tryPing() {
   }
 }
 
-tryPing();
-// setInterval(tryPing, 10000);
+setInterval(tryPing, 10000);
