@@ -24,9 +24,9 @@ function tryPing() {
           .reverse()
           .slice(1)
           .reverse();
-        result.min = minMaxAverage[0];
-        result.avg = minMaxAverage[1];
-        result.max = minMaxAverage[2];
+        result.min = parseFloat(minMaxAverage[0]);
+        result.avg = parseFloat(minMaxAverage[1]);
+        result.max = parseFloat(minMaxAverage[2]);
 
         client.index(
           {
@@ -45,4 +45,5 @@ function tryPing() {
   }
 }
 
-setInterval(tryPing, 10000);
+tryPing();
+// setInterval(tryPing, 10000);
