@@ -1,6 +1,5 @@
 version: "2"
 services:
-  
   elasticsearch:
     build:
       context: docker/elasticsearch/
@@ -39,6 +38,16 @@ services:
       - "9100:9000"
     networks:
       - elk
+
+  app:
+    image: node:11
+    restart: always
+    networks:
+      - elk
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: npm start
 
 networks:
   elk:
