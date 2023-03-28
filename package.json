@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/Mastermindzh/Network-testing#readme",
   "dependencies": {
-    "elasticsearch": "^15.4.1"
+    "elasticsearch": "^15.5.0"
   }
 }
